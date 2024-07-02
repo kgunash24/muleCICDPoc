@@ -4,7 +4,7 @@
 
 	<groupId>com.mycompany</groupId>
 	<artifactId>muleCICDPoc</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.6-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
 	<name>muleCICDPoc</name>
@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.7</app.runtime>
+		<app.runtime>4.6.4</app.runtime>
 		<mule.maven.plugin.version>4.1.0</mule.maven.plugin.version>
 	</properties>
 
@@ -32,13 +32,13 @@
 			    <configuration>
 			        <cloudHubDeployment>
 			            <uri>https://anypoint.mulesoft.com</uri>
-			            <muleVersion>4.7</muleVersion>
-<!-- 			            <username>kgunash24</username>
+			            <muleVersion>${app.runtime}</muleVersion>
+<!-- 	                    <username>kgunash24</username>
 			            <password>Kaus@131289</password> -->
 			            <applicationName>muleCICDPoc</applicationName>
 			            <environment>Sandbox</environment>
 			            <workerType>MICRO</workerType>
-                        <connectedAppClientId>b0ec067a15924f4a9753148938506e89</connectedAppClientId>
+						<connectedAppClientId>b0ec067a15924f4a9753148938506e89</connectedAppClientId>
                         <connectedAppClientSecret>0b75440C687D4237b4BD6FfDe91eE450</connectedAppClientSecret>
                         <connectedAppGrantType>client_credentials</connectedAppGrantType>
 			            <objectStoreV2>true</objectStoreV2>
