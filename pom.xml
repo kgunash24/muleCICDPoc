@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.6.2</app.runtime>
+		<app.runtime>4.7.0:22e</app.runtime>
 		<mule.maven.plugin.version>4.1.0</mule.maven.plugin.version>
 	</properties>
 
@@ -32,7 +32,7 @@
 			    <configuration>
 			        <cloudHubDeployment>
 			            <uri>https://anypoint.mulesoft.com</uri>
-			            <muleVersion>4.6.2</muleVersion>
+			            <muleVersion>4.7.0:22e</muleVersion>
 <!-- 			            <username>kgunash24</username>
 			            <password>Kaus@131289</password> -->
 			            <applicationName>muleCICDPoc</applicationName>
