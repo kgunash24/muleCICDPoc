@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
+	<os:config name="ObjectStore_Config" doc:name="ObjectStore Config" doc:id="cb038131-cb3a-4a2d-a6c4-6eda4df061fd" />
+	<os:object-store name="Object_store" doc:name="Object store" doc:id="a15c610e-2dea-470f-975e-7bfb92a5d6fd" maxEntries="500" config-ref="ObjectStore_Config" />
+	<flow name="pocFlow" doc:id="87c63f32-ba1b-4f3c-a804-22319ef2c619" >
+		<scheduler doc:name="Scheduler" doc:id="62326c9e-823b-478f-a1fe-c3407e286776" >
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</scheduler>
+		<ee:transform doc:name="Transform Message" doc:id="39f59b74-804b-456d-ab89-111c16ee3feb">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"test" : correlationId
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<os:store doc:name="Store" doc:id="ce93247c-3506-4571-8e19-25dc92660480" key="#[correlationId]" objectStore="Object_store"/>
+		<logger level="INFO" doc:name="Logger" doc:id="17dab466-6014-428a-bece-e3b077ab33a6" message='#["Started " ++ correlationId]'/>
+	</flow>
+	<flow name="pocFlow1" doc:id="6b510435-5412-4942-8d1b-9453d741fea1" >
+		<scheduler doc:name="Scheduler" doc:id="c1891638-2d7f-4454-a80d-5503e12b16c9" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="5" timeUnit="SECONDS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<os:retrieve-all doc:name="Retrieve all" doc:id="71dfcb14-50f0-4d8b-87c8-ebde45aa3242" objectStore="Object_store"/>
+		<ee:transform doc:name="Transform Message" doc:id="50c9c432-749d-4af9-9678-5abd83a26f33" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="2d977cae-b331-4c79-b045-d115483fc867" message='#[payload]'/>
+	</flow>
+</mule>
