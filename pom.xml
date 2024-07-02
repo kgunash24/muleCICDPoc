@@ -33,11 +33,14 @@
 			        <cloudHubDeployment>
 			            <uri>https://anypoint.mulesoft.com</uri>
 			            <muleVersion>4.7.0</muleVersion>
-			            <username>kgunash24</username>
-			            <password>Kaus@131289</password>
+<!-- 			            <username>kgunash24</username>
+			            <password>Kaus@131289</password> -->
 			            <applicationName>muleCICDPoc</applicationName>
 			            <environment>Sandbox</environment>
 			            <workerType>MICRO</workerType>
+                        <connectedAppClientId>b0ec067a15924f4a9753148938506e89</connectedAppClientId>
+                        <connectedAppClientSecret>0b75440C687D4237b4BD6FfDe91eE450</connectedAppClientSecret>
+                        <connectedAppGrantType>client_credentials</connectedAppGrantType>
 			            <objectStoreV2>true</objectStoreV2>
 			        </cloudHubDeployment>
 			    </configuration>
